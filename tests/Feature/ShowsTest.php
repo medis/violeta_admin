@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+use App\Show;
+
 class ShowsTest extends TestCase
 {
     use DatabaseMigrations;
@@ -47,5 +49,24 @@ class ShowsTest extends TestCase
         $response = $this->get('/api/shows');
         $data = $response->getData();
         $this->assertEmpty($data->data);
+    }
+
+    /** @test */
+    public function authenticated_user_can_delete_show()
+    {
+        $this->signIn();
+        $show = create('App\Show', ['enabled' => false]);
+        $response = $this->delete("/show/{$show->id}/delete");
+        $this->assertEmpty(Show::find($show->id));
+    }
+
+    /** @test */
+    public function anonymous_user_can_not_delete_show()
+    {
+        $this->withExceptionHandling();
+
+        $show = create('App\Show', ['enabled' => false]);
+        $response = $this->delete("/show/{$show->id}/delete");
+        $this->assertNotEmpty(Show::find($show->id));
     }
 }
