@@ -78,9 +78,9 @@ class ShowsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Show $show)
     {
-        //
+        return view('shows.edit', compact('show'));
     }
 
     /**
@@ -90,9 +90,22 @@ class ShowsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Show $show)
     {
-        //
+        $this->validate($request, [
+            'venue' => 'required',
+            'address' => 'required',
+            'date' => 'date_format:Y-m-d',
+            'time' => 'date_format:H:i',
+        ]);
+
+        $show->venue = $request->venue;
+        $show->address = $request->address;
+        $show->date = new Carbon("{$request->date} {$request->time}", 'Europe/London');
+        $show->enabled = $request->get('enabled') ? true : false;
+        $show->save();
+
+        return redirect()->route('home')->with('status', 'Show updated.');
     }
 
     /**
