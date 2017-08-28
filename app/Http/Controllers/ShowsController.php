@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Show;
 use App\Transformers\ShowsTransformer;
+use Carbon\Carbon;
 
 class ShowsController extends Controller
 {
@@ -44,7 +45,20 @@ class ShowsController extends Controller
      */
     public function store(Request $request)
     {
-        dd('aa');
+        $this->validate($request, [
+            'venue' => 'required',
+            'address' => 'required',
+            'date' => 'date_format:Y-m-d',
+            'time' => 'date_format:H:i',
+        ]);
+
+        Show::create([
+            'venue' => $request->venue,
+            'address' => $request->venue,
+            'date' => new Carbon("{$request->date} {$request->time}", 'Europe/London')
+        ]);
+
+        return redirect()->route('home')->with('status', 'Show created.');
     }
 
     /**
