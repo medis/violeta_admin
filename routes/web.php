@@ -16,10 +16,12 @@ Auth::routes();
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('shows/create', 'ShowsController@create');
-Route::get('show/{show}/edit', 'ShowsController@edit')->name('show.edit');
+Route::resource('show', 'ShowsController');
 
-Route::post('shows/create', 'ShowsController@store')->name('show.store');
-Route::post('show/{show}/edit', 'ShowsController@update')->name('show.update');
+// Route::get('shows/create', 'ShowsController@create')->name('show.create');;
+// Route::get('show/{show}/edit', 'ShowsController@edit')->name('show.edit');
 
-Route::delete('show/{show}/delete', 'ShowsController@destroy')->name('show.destroy');
+// Route::post('shows/create', 'ShowsController@store')->name('show.store');
+// Route::post('show/{show}/edit', 'ShowsController@update')->name('show.update');
+
+// Route::delete('show/{show}/delete', 'ShowsController@destroy')->name('show.destroy');

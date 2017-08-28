@@ -17,4 +17,4 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::get('shows/{id?}', 'ShowsController@index');
+Route::get('shows', 'Api\ShowsApiController@index')->name('api.shows.index');

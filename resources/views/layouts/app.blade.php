@@ -18,7 +18,21 @@
 
         @include('partials.header')
 
-        @yield('content')
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="panel panel-default">
+                        @include('partials.navigation')
+                    </div>
+                </div>
+
+                <div class="col-md-10">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
     <!-- Scripts -->

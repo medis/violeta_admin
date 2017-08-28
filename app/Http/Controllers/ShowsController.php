@@ -12,7 +12,7 @@ class ShowsController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except('index');
+        $this->middleware('auth');
     }
 
     /**
@@ -22,9 +22,9 @@ class ShowsController extends Controller
      */
     public function index(Request $request)
     {
-        $shows = Show::where('enabled', 1)->paginate(10);
+        $shows = Show::paginate(30);
 
-        return fractal($shows, new ShowsTransformer())->respond();
+        return view('shows.list', compact('shows'));
     }
 
     /**
@@ -58,7 +58,7 @@ class ShowsController extends Controller
             'date' => new Carbon("{$request->date} {$request->time}", 'Europe/London')
         ]);
 
-        return redirect()->route('home')->with('status', 'Show created.');
+        return redirect()->route('show.index')->with('status', 'Show created.');
     }
 
     /**
@@ -105,7 +105,7 @@ class ShowsController extends Controller
         $show->enabled = $request->get('enabled') ? true : false;
         $show->save();
 
-        return redirect()->route('home')->with('status', 'Show updated.');
+        return redirect()->route('show.index')->with('status', 'Show updated.');
     }
 
     /**
