@@ -59,6 +59,15 @@
                         </div>
                     {!! Form::close() !!}
 
+                    {{ Form::open(['method' => 'DELETE', 'route' => ['show.destroy', $show->id]]) }}
+                        <div class="row float-right">
+                            <div class="col-sm-12">
+                                <div class="form-group delete negative-margin">
+                                    {{ Form::submit('Delete', ['class' => 'btn btn-danger']) }}
+                                </div>
+                            </div>
+                        </div>
+                    {{ Form::close() }}
                 </div>
             </div>
         </div>

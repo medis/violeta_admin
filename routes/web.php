@@ -21,3 +21,5 @@ Route::get('show/{show}/edit', 'ShowsController@edit')->name('show.edit');
 
 Route::post('shows/create', 'ShowsController@store')->name('show.store');
 Route::post('show/{show}/edit', 'ShowsController@update')->name('show.update');
+
+Route::delete('show/{show}/delete', 'ShowsController@destroy')->name('show.destroy');
