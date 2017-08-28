@@ -8,6 +8,12 @@ use App\Transformers\ShowsTransformer;
 
 class ShowsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,7 +33,7 @@ class ShowsController extends Controller
      */
     public function create()
     {
-        //
+        return view('shows.create');
     }
 
     /**
@@ -38,7 +44,7 @@ class ShowsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd('aa');
     }
 
     /**
