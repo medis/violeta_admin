@@ -17,21 +17,40 @@ class ShowsTest extends TestCase
     {
         parent::setUp();
     }
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    // public function an_authenticated_user_can_create_shows()
-    // {
-    //     $this->signIn();
 
-    //     $thread = make('App\Thread');
-    //     $response = $this->post('/threads', $thread->toArray());
-    //     $this->get($response->headers->get('Location'))
-    //          ->assertSee($thread->title)
-    //          ->assertSee($thread->body);
-    // }
+    /** @test */
+    public function authenticated_user_can_create_shows()
+    {
+        $this->signIn();
+
+        $show = make('App\Show');
+        $show_array = $show->toArray();
+        $show_array['time'] = $show_array['date']->format('H:i');
+        $show_array['date'] = $show_array['date']->format('Y-m-d');
+        $response = $this->post('/shows/create', $show_array);
+
+        $show_in_db = Show::where('venue', $show->venue)
+                          ->get();
+
+        $this->assertNotEmpty($show_in_db);
+    }
+
+    /** @test */
+    public function anonymous_user_can_not_create_shows()
+    {
+        $this->withExceptionHandling();
+
+        $show = make('App\Show');
+        $show_array = $show->toArray();
+        $show_array['time'] = $show_array['date']->format('H:i');
+        $show_array['date'] = $show_array['date']->format('Y-m-d');
+        $response = $this->post('/shows/create', $show_array);
+
+        $show_in_db = Show::where('venue', $show->venue)
+                          ->get();
+
+        $this->assertEmpty($show_in_db);
+    }
 
     /** @test */
     public function anonymous_user_can_see_enabled_shows()
