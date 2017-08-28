@@ -28,13 +28,13 @@
                 <div class="col-sm-8">
                     <div class="form-group date">
                         {{ Form::label('date', 'Date') }}
-                        {{ Form::date('date', \Carbon\Carbon::now(), ['class' => 'form-control', 'required']) }}
+                        {{ Form::date('date', Carbon\Carbon::parse($show->date)->format('Y-m-d'), ['class' => 'form-control', 'required']) }}
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group time">
                         {{ Form::label('time', 'Time') }}
-                        {{ Form::time('time', Carbon\Carbon::now()->format('H:i'), ['class' => 'form-control', 'required']) }}
+                        {{ Form::time('time', Carbon\Carbon::parse($show->date)->format('H:i'), ['class' => 'form-control', 'required']) }}
                     </div>
                 </div>
 

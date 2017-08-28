@@ -22,7 +22,7 @@ class ShowsController extends Controller
      */
     public function index(Request $request)
     {
-        $shows = Show::paginate(30);
+        $shows = Show::orderBy('date', 'desc')->paginate(30);
 
         return view('shows.list', compact('shows'));
     }
@@ -117,6 +117,6 @@ class ShowsController extends Controller
     public function destroy(Show $show)
     {
         $show->delete();
-        return redirect()->route('home')->with('status', 'Show deleted.');
+        return redirect()->route('show.index')->with('status', 'Show deleted.');
     }
 }
