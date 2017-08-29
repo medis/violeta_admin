@@ -39,6 +39,11 @@
             @endforeach
           </tbody>
         </table>
+
+        <nav aria-label="Shows pagination" class="text-center">
+          {{ $shows->links() }}
+        </nav>
+
       @endif
     </div>
 </div>
