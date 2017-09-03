@@ -19,10 +19,6 @@ class ShowsApiController extends Controller
     {
         $limit = 10;
 
-        if ($request->latest) {
-            $limit = 3;
-        }
-
         $shows = Show::where('enabled', 1)
                      ->whereDate('date', '>=', Carbon::today()->toDateString())
                      ->orderBy('date', 'asc')
