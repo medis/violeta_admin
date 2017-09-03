@@ -180,6 +180,7 @@ return [
 
         Spatie\Fractal\FractalServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Barryvdh\Cors\ServiceProvider::class,
 
     ],
 

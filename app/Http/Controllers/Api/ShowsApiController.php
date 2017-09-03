@@ -17,7 +17,16 @@ class ShowsApiController extends Controller
      */
     public function index(Request $request)
     {
-        $shows = Show::where('enabled', 1)->paginate(10);
+        $limit = 10;
+
+        if ($request->latest) {
+            $limit = 3;
+        }
+
+        $shows = Show::where('enabled', 1)
+                     ->whereDate('date', '>=', Carbon::today()->toDateString())
+                     ->orderBy('date', 'asc')
+                     ->paginate($limit);
 
         return fractal($shows, new ShowsTransformer())->respond();
     }
