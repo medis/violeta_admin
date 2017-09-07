@@ -30,3 +30,12 @@ $factory->define(App\Show::class, function($faker) {
         'date'    => $faker->DateTime()
     ];
 });
+
+$factory->define(App\Blog::class, function($faker) {
+    return [
+        'title'   => $faker->text(10),
+        'source'  => $faker->text(10),
+        'date'    => $faker->DateTime(),
+        'link'    => $faker->url()
+    ];
+});
