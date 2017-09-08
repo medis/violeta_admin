@@ -18,4 +18,4 @@ use Illuminate\Http\Request;
 // });
 
 Route::get('shows', 'Api\ShowsApiController@index')->name('api.shows.index');
-Route::get('blogs', 'Api\BlogsApiController@index')->name('api.blog.index');
+Route::get('press', 'Api\BlogsApiController@index')->name('api.blog.index');
