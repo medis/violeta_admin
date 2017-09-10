@@ -45,29 +45,19 @@ class MusicsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreMusic $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'source' => [
-                'required',
-                'url',
-                'regex:/^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/',
-            ],
-            'type' => ['required',
-                Rule::in(Music::getTypes()),
-            ],
-        ]);
-
         if ($request->get('featured')) {
             // This music needs to be featured.
             // Unfeature currect one.
             Music::unfeatureMusic();
         }
 
+        $code = Music::parseCode($request->source);
+
         Music::create([
             'title' => $request->title,
-            'source' => $request->source,
+            'source' => $code,
             'type' => $request->type,
             'featured' => $request->get('featured') ? true : false
         ]);
