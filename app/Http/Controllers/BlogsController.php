@@ -57,7 +57,7 @@ class BlogsController extends Controller
             'date' => new Carbon("{$request->date}", 'Europe/London')
         ]);
 
-        return redirect()->route('blog.index')->with('status', 'Blog created.');
+        return redirect()->route('blog.index')->with('status', 'Press created.');
     }
 
     /**
@@ -105,7 +105,7 @@ class BlogsController extends Controller
         $blog->enabled = $request->get('enabled') ? true : false;
         $blog->save();
 
-        return redirect()->route('blog.index')->with('status', 'Blog updated.');
+        return redirect()->route('blog.index')->with('status', 'Press updated.');
     }
 
     /**
@@ -117,6 +117,6 @@ class BlogsController extends Controller
     public function destroy(Blog $blog)
     {
         $blog->delete();
-        return redirect()->route('blog.index')->with('status', 'Blog deleted.');
+        return redirect()->route('blog.index')->with('status', 'Press deleted.');
     }
 }

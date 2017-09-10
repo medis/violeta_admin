@@ -3,11 +3,11 @@
 @section('content')
 
 <div class="panel panel-default">
-    <div class="panel-heading">Edit press</div>
+    <div class="panel-heading">Edit song</div>
     <div class="panel-body">
         @include('partials.errors')
 
-        {!! Form::model($blog, ['route' => ['blog.update', $blog], 'method' => 'put']) !!}
+        {!! Form::model($music, ['route' => ['music.update', $music], 'method' => 'put']) !!}
 
             <div class="row">
 
@@ -19,23 +19,23 @@
                 </div>
 
                 <div class="col-sm-12">
-                    <div class="form-group source">
-                        {{ Form::label('source', 'Source') }}
-                        {{ Form::text('source', null, ['class' => 'form-control', 'required']) }}
+                    <div class="form-group type">
+                        {{ Form::label('type', 'Type') }}
+                        {{ Form::select('type', $types, ['class' => 'form-control', 'required']) }}
                     </div>
                 </div>
 
                 <div class="col-sm-12">
-                    <div class="form-group link">
-                        {{ Form::label('link', 'Link') }}
-                        {{ Form::url('link', null, ['class' => 'form-control', 'required']) }}
+                    <div class="form-group source">
+                        {{ Form::label('source', 'Link') }}
+                        {{ Form::url('source', $music->getLink(), ['class' => 'form-control', 'required']) }}
                     </div>
                 </div>
 
-                <div class="col-sm-8">
-                    <div class="form-group date">
-                        {{ Form::label('date', 'Date') }}
-                        {{ Form::date('date', Carbon\Carbon::parse($blog->date)->format('Y-m-d'), ['class' => 'form-control', 'required']) }}
+                <div class="col-sm-12">
+                    <div class="form-group featured">
+                        {{ Form::label('featured', 'Featured') }}
+                        {{ Form::checkbox('featured') }}
                     </div>
                 </div>
 
@@ -57,7 +57,7 @@
             </div>
         {!! Form::close() !!}
 
-        {{ Form::open(['method' => 'DELETE', 'route' => ['blog.destroy', $blog->id]]) }}
+        {{ Form::open(['method' => 'DELETE', 'route' => ['music.destroy', $music->id]]) }}
             <div class="row float-right">
                 <div class="col-sm-12">
                     <div class="form-group delete negative-margin">

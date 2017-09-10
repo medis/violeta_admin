@@ -39,3 +39,11 @@ $factory->define(App\Blog::class, function($faker) {
         'link'    => $faker->url()
     ];
 });
+
+$factory->define(App\Music::class, function($faker) {
+    return [
+        'title'    => $faker->text(10),
+        'type'   => $faker->text(10),
+        'source'  => $faker->text(10)
+    ];
+});

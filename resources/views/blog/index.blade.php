@@ -5,9 +5,9 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="row">
-          <div class="col-md-6">List of blogs</div>
+          <div class="col-md-6">List of press</div>
           <div class="col-md-6 text-right">
-            <a href="{{ route('blog.create') }}" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add blog</a>
+            <a href="{{ route('blog.create') }}" class="btn btn-primary" role="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add press</a>
           </div>
         </div>
     </div>

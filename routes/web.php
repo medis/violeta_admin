@@ -18,3 +18,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('show', 'ShowsController');
 Route::resource('blog', 'BlogsController');
+Route::resource('music', 'MusicsController');
