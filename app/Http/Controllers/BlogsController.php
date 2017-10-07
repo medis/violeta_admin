@@ -43,7 +43,7 @@ class BlogsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'title' => 'required',
             'source' => 'required',
             'link' => 'required|url',
@@ -91,7 +91,7 @@ class BlogsController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
-        $this->validate($request, [
+        $request->validate([
             'title' => 'required',
             'source' => 'required',
             'link' => 'required|url',

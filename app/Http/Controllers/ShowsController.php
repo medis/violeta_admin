@@ -45,7 +45,7 @@ class ShowsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $request->validate([
             'venue' => 'required',
             'address' => 'required',
             'date' => 'date_format:Y-m-d',
@@ -92,7 +92,7 @@ class ShowsController extends Controller
      */
     public function update(Request $request, Show $show)
     {
-        $this->validate($request, [
+        $request->validate([
             'venue' => 'required',
             'address' => 'required',
             'date' => 'date_format:Y-m-d',
