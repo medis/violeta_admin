@@ -4,14 +4,14 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use \Carbon\Carbon;
 
 use App\Show;
 
 class ShowsTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
     protected function setUp()
     {
@@ -23,11 +23,11 @@ class ShowsTest extends TestCase
     {
         $this->signIn();
 
-        $show = make('App\Show');
+        $show = make('App\Show', ['date' => Carbon::now(+1)]);
         $show_array = $show->toArray();
         $show_array['time'] = $show_array['date']->format('H:i');
         $show_array['date'] = $show_array['date']->format('Y-m-d');
-        $response = $this->post('/shows/create', $show_array);
+        $response = $this->post(route('show.store'), $show_array);
 
         $show_in_db = Show::where('venue', $show->venue)
                           ->get();
@@ -38,9 +38,9 @@ class ShowsTest extends TestCase
     /** @test */
     public function anonymous_user_can_not_create_shows()
     {
-        $this->withExceptionHandling();
+        // $this->withExceptionHandling();
 
-        $show = make('App\Show');
+        $show = make('App\Show', ['date' => Carbon::now(+1)]);
         $show_array = $show->toArray();
         $show_array['time'] = $show_array['date']->format('H:i');
         $show_array['date'] = $show_array['date']->format('Y-m-d');
@@ -55,7 +55,7 @@ class ShowsTest extends TestCase
     /** @test */
     public function anonymous_user_can_see_enabled_shows()
     {
-        $show = create('App\Show');
+        $show = create('App\Show', ['date' => Carbon::now(+1)]);
         $response = $this->get('/api/shows');
         $data = $response->getData();
         $this->assertEquals($show->venue, $data->data[0]->venue);
@@ -64,7 +64,7 @@ class ShowsTest extends TestCase
     /** @test */
     public function anonymous_user_can_not_see_disabled_shows()
     {
-        $show = create('App\Show', ['enabled' => false]);
+        $show = create('App\Show', ['date' => Carbon::now(+1), 'enabled' => false]);
         $response = $this->get('/api/shows');
         $data = $response->getData();
         $this->assertEmpty($data->data);
@@ -74,17 +74,17 @@ class ShowsTest extends TestCase
     public function authenticated_user_can_delete_show()
     {
         $this->signIn();
-        $show = create('App\Show', ['enabled' => false]);
-        $response = $this->delete("/show/{$show->id}/delete");
+        $show = create('App\Show', ['date' => Carbon::now(+1), 'enabled' => false]);
+        $response = $this->delete(route('show.destroy', $show->id));
         $this->assertEmpty(Show::find($show->id));
     }
 
     /** @test */
     public function anonymous_user_can_not_delete_show()
     {
-        $this->withExceptionHandling();
+        // $this->withExceptionHandling();
 
-        $show = create('App\Show', ['enabled' => false]);
+        $show = create('App\Show', ['date' => Carbon::now(+1), 'enabled' => false]);
         $response = $this->delete("/show/{$show->id}/delete");
         $this->assertNotEmpty(Show::find($show->id));
     }

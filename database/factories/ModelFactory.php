@@ -22,28 +22,3 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
-
-$factory->define(App\Show::class, function($faker) {
-    return [
-        'venue'   => $faker->text(10),
-        'address' => $faker->address(),
-        'date'    => $faker->DateTime()
-    ];
-});
-
-$factory->define(App\Blog::class, function($faker) {
-    return [
-        'title'   => $faker->text(10),
-        'source'  => $faker->text(10),
-        'date'    => $faker->DateTime(),
-        'link'    => $faker->url()
-    ];
-});
-
-$factory->define(App\Music::class, function($faker) {
-    return [
-        'title'    => $faker->text(10),
-        'type'   => $faker->text(10),
-        'source'  => $faker->text(10)
-    ];
-});
