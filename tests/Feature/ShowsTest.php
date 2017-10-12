@@ -38,8 +38,6 @@ class ShowsTest extends TestCase
     /** @test */
     public function anonymous_user_can_not_create_shows()
     {
-        // $this->withExceptionHandling();
-
         $show = make('App\Show', ['date' => Carbon::now(+1)]);
         $show_array = $show->toArray();
         $show_array['time'] = $show_array['date']->format('H:i');
@@ -82,8 +80,6 @@ class ShowsTest extends TestCase
     /** @test */
     public function anonymous_user_can_not_delete_show()
     {
-        // $this->withExceptionHandling();
-
         $show = create('App\Show', ['date' => Carbon::now(+1), 'enabled' => false]);
         $response = $this->delete("/show/{$show->id}/delete");
         $this->assertNotEmpty(Show::find($show->id));
