@@ -18,7 +18,7 @@ class CreateMusicsTable extends Migration
             $table->string('title', 512);
             $table->string('type');
             $table->string('source');
-            $table->boolean('featured');
+            $table->boolean('featured')->default(0);
             $table->boolean('enabled')->default(true);
             $table->timestamps();
         });

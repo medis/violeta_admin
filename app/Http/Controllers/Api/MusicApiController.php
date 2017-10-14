@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Music;
-use App\Transformers\MusicTransformer;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Music as MusicResource;
 
 class MusicApiController extends Controller
 {
@@ -24,6 +24,6 @@ class MusicApiController extends Controller
                 ->orderBy('created_at', 'desc')
                 ->paginate($limit);
 
-        return fractal($music, new MusicTransformer())->respond();
+        return MusicResource::collection($music);
     }
 }

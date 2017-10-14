@@ -60,6 +60,18 @@ class ShowsTest extends TestCase
     }
 
     /** @test */
+    public function api_returns_all_data()
+    {
+        $show = create('App\Show', ['date' => Carbon::now(+1)]);
+        $response = $this->get('/api/shows');
+        $data = $response->getData();
+        $this->assertEquals(
+            array_keys(get_object_vars($data->data[0])),
+            ['venue', 'address', 'date']
+        );
+    }
+
+    /** @test */
     public function anonymous_user_can_not_see_disabled_shows()
     {
         $show = create('App\Show', ['date' => Carbon::now(+1), 'enabled' => false]);

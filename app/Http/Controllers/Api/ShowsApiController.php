@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Show;
-use App\Transformers\ShowsTransformer;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
+
+use App\Http\Resources\Show as ShowResource;
 
 class ShowsApiController extends Controller
 {
@@ -24,6 +25,6 @@ class ShowsApiController extends Controller
                      ->orderBy('date', 'asc')
                      ->paginate($limit);
 
-        return fractal($shows, new ShowsTransformer())->respond();
+        return ShowResource::collection($shows);
     }
 }

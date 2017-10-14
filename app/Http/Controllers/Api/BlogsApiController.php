@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Blog;
-use App\Transformers\BlogsTransformer;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Blogs as BlogsResource;
 
 class BlogsApiController extends Controller
 {
@@ -23,6 +23,6 @@ class BlogsApiController extends Controller
                      ->orderBy('date', 'desc')
                      ->paginate($limit);
 
-        return fractal($blogs, new BlogsTransformer())->respond();
+        return BlogsResource::collection($blogs);
     }
 }
