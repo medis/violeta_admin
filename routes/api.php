@@ -20,3 +20,4 @@ use Illuminate\Http\Request;
 Route::get('shows', 'Api\ShowsApiController@index')->name('api.shows.index');
 Route::get('press', 'Api\BlogsApiController@index')->name('api.blog.index');
 Route::get('music', 'Api\MusicApiController@index')->name('api.music.index');
+Route::get('texts', 'Api\TextsApiController@index')->name('api.texts.index');

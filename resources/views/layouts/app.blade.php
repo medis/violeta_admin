@@ -53,6 +53,10 @@
     </div>
 
     <!-- Scripts -->
+    <script type="text/javascript" src="{{ URL::asset('js/jquery.min.js') }}"></script>
+
+    @yield('scripts')
+
     <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
