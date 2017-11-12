@@ -22,3 +22,4 @@ Route::resource('music', 'MusicsController');
 Route::resource('text', 'TextsController', ['only' => [
   'index', 'edit', 'update'
 ]]);
+Route::resource('radio', 'RadioController', ['except' => ['show']]);

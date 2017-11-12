@@ -3,4 +3,5 @@
   <a href="{{ route('show.index') }}" class="list-group-item">Shows</a>
   <a href="{{ route('music.index') }}" class="list-group-item">Music</a>
   <a href="{{ route('blog.index') }}" class="list-group-item">Press</a>
+  <a href="{{ route('radio.index') }}" class="list-group-item">Radios</a>
 </div>
